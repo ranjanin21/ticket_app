@@ -1,0 +1,58 @@
+<h3> Update Profile </h3>
+
+<%= form_for @customer do |f| %>
+    <label>Name</label><br/>
+    <%= f.text_field :name, :required => true %>
+    <br/><br/>
+     
+    <label>Email</label><br/>
+    <%= f.email_field :email, :required => true  %><br/><br/>
+
+    <label>Mobile Number</label><br/>
+    <%= f.text_field :mobile_number, :required => true , maxlength: 10 %><br/><br/>
+
+    <%= f.fields_for :address do |customer_address| %>
+        
+        <label>Street</label><br/>
+        <%= customer_address.text_field :street, :required => true  %><br/><br/>
+
+        <label>Area</label><br/>
+       <%= customer_address.text_field :area, :required => true  %><br/><br/>
+
+        <label>City</label><br/>
+        <%= customer_address.text_field :city, :required => true  %><br/><br/>
+
+        <label>State</label><br/>
+        <%= customer_address.text_field :state, :required => true  %><br/><br/>
+
+        <label>Pincode</label><br/>
+        <%= customer_address.text_field :pincode, :required => true  %><br/><br/>
+     <% end %>
+
+     <%= f.fields_for :bank_detail do |customer_bank| %>
+        
+        <label>Bank Name</label><br/>
+        <%= customer_bank.text_field :bank_name, :required => true  %><br/><br/>
+
+        <label>Branch Name</label><br/>
+        <%= customer_bank.text_field :branch_name, :required => true  %><br/><br/>
+
+        <label>Account Number</label><br/>
+        <%= customer_bank.text_field :account_number, :required => true  %><br/><br/>
+     <% end %>
+
+     <%= f.fields_for :employment_detail do |customer_employment| %>
+        
+        <label>Company Name</label><br/>
+        <%= customer_employment.text_field :company_name, :required => true  %><br/><br/>
+
+        <label>Location</label><br/>
+        <%= customer_employment.text_field :location, :required => true  %><br/><br/>
+
+        <label>Designation</label><br/>
+        <%= customer_employment.text_field :designation, :required => true  %><br/><br/>
+     <% end %>
+     <br/><br/>
+     
+     <%= f.submit "Submit" %>
+<% end %>

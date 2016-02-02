@@ -1,0 +1,34 @@
+<h3>Booked Tickets</h3>
+
+<strong>Total Number of tickets booked : </strong> <%= @tickets.count %>
+<br/>
+<table border=1>
+  <tr>
+    <td> Booking Date </td>
+    <td> From Place </td>
+    <td> To Place </td>
+    <td> Booking Number </td>
+    <td>Status</td>
+    <td> Cancel</td>
+  </tr>
+
+    <% @tickets.each do |ticket| %>
+     <tr>
+       <td><%= ticket.created_at.to_date %></td>
+      <td><%= ticket.from_place %></td>
+      <td><%= ticket.to_place %></td>
+      <td><%= ticket.booking_number %></td>
+      <td><%= ticket.ticket_status %></td>
+       <% if ticket.ticket_status == "Confirmed" %>
+         <td><%= link_to "Cancel", cancel_ticket_path(:id => ticket.id), method: :patch %></td>
+       <% else %>
+         <td>NA</td>
+       <% end %>
+
+     </tr>
+    <% end %>
+ 
+</table>
+
+<br/><hr>
+<%= link_to "Book New Ticket", new_ticket_path %>
