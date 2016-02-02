@@ -3,13 +3,13 @@
 <%= form_for @ticket do |f| %>
 
        <label>Booking Date</label><br/>
-       <%= f.date_field :booking_date %><br/><br/>
+<%= f.date_field :booking_date, required: true %><br/><br/>
 
        <label>From Place</label><br/>
-       <%= f.text_field :from_place %><br/><br/>
+       <%= f.text_field :from_place, required: true  %><br/><br/>
 
        <label>To Place</label><br/>
-       <%= f.text_field :to_place %><br/><br/>
+       <%= f.text_field :to_place, required: true  %><br/><br/>
 
        <%= f.submit "Submit" %>
        <%= f.hidden_field :customer_id, :value => current_customer.id %>
