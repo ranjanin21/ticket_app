@@ -3,7 +3,10 @@
 <%= form_for @ticket do |f| %>
 
        <label>Booking Date</label><br/>
-<%= f.date_field :booking_date, required: true %><br/><br/>
+       <%= f.text_field :booking_date, :value => Date.today, readonly: true, required: true %><br/><br/>
+
+       <label>Journey Date</label><br/>
+       <%= f.date_field :journey_date, required: true %><br/><br/>
 
        <label>From Place</label><br/>
        <%= f.text_field :from_place, required: true  %><br/><br/>

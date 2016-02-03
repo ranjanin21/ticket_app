@@ -1,12 +1,13 @@
 <h3>Booked Tickets</h3>
 
 <strong>Total Number of tickets booked : </strong> <%= @tickets.count %>
-<br/>
+<br/><br/>
 <table border=1>
   <tr>
     <td> Booking Date </td>
     <td> From Place </td>
     <td> To Place </td>
+    <td>Journey Date</td>
     <td> Booking Number </td>
     <td>Status</td>
     <td> Cancel</td>
@@ -17,6 +18,7 @@
        <td><%= ticket.created_at.to_date %></td>
       <td><%= ticket.from_place %></td>
       <td><%= ticket.to_place %></td>
+       <td><%= ticket.journey_date %></td>
       <td><%= ticket.booking_number %></td>
       <td><%= ticket.ticket_status %></td>
        <% if ticket.ticket_status == "Confirmed" %>

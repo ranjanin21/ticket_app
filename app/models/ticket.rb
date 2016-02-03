@@ -6,29 +6,37 @@ class Ticket < ActiveRecord::Base
   before_create :generate_booking_number
  
   def generate_tickets_number
-    a = ('A'..'Z').to_a.shuffle.first(3).join
-    if Customer.current.tickets.present?
-      #to get the booking numbers of tickets cancelled before 3 months
-      numbers = Ticket.where("cancelled_date = ? OR cancelled_date < ?", nil, Date.today-3.months).pluck(:number_1)
-      if numbers.include? a
-        b = [*'A'..'D', *'F'..'Z'].shuffle.first(3).join
-        self.number_1 = b
+     x = ('A'..'Z').to_a.shuffle.first(3).join
+      if x == ("EKA" || "SEL" ||  "BAR" ||"RAC" || "MON" || "ETI" || "AMA")
+       self.number_1 = x.reverse
       else
-        self.number_1 = a
-      end    
-    else
-      a = ('A'..'Z').to_a.shuffle.first(3).join
-      if a == "EKA"
-       self.number_1 = a.reverse
-      else
-       self.number_1 = a
+       self.number_1 = x
       end
+    a = [*'0'..'9', *'A'..'Z'].to_a.shuffle.first(3).join    
+    if Customer.current.tickets.present?
+        #to get the booking numbers of tickets cancelled before 3 months
+      numbers = Ticket.all.where("cancelled_date < ? OR cancelled_date IS NULL", Date.today-3.months).pluck(:number_2)
+      while numbers.include? a.to_s
+        a = [*'0'..'9', *'A'..'Z'].shuffle.first(3).join
+      end
+      self.number_2 = a
+    else
+      self.number_2 = a
     end
-    self.number_2 = [*'0'..'9', *'A'..'Z'].shuffle.first(3).join
   end
   
   def generate_booking_number
-    self.booking_number = self.number_1 + self.number_2.to_s
+    tickets = Ticket.all.where("journey_date < ?", Date.today-2.years).pluck(:booking_number)
+    if tickets.present?
+      tickets1 = Ticket.all.where("journey_date >= ?", Date.today-2.years).pluck(:booking_number)
+      if tickets1.include? tickets.shuffle.first       
+        self.booking_number = self.number_1 + self.number_2.to_s
+      else
+        self.booking_number = tickets.shuffle.first
+      end
+    else
+      self.booking_number = self.number_1 + self.number_2.to_s
+    end
     self.ticket_status = "Confirmed"
   end
   

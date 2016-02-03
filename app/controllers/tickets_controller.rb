@@ -49,7 +49,7 @@ class TicketsController < ApplicationController
   
   private
   def set_params
-    params[:ticket].permit(:from_place, :to_place, :booking_date, :customer_id, :ticket_status)
+    params[:ticket].permit(:from_place, :to_place, :booking_date, :customer_id, :ticket_status, :journey_date)
   end
   
   
