@@ -21,6 +21,11 @@ class CustomersController < ApplicationController
   
   def show
     @customer = Customer.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.json #{render json: @customer}
+      #format.json {  send_data render_to_string(:show), :filename => 'customer location.json', :type=>"application/json", :disposition => 'attachment' }
+    end
   end
   
   def edit
@@ -46,7 +51,7 @@ class CustomersController < ApplicationController
   private
   def set_params
     params[:customer].permit(:name, :email, :mobile_number,
-      {:address_attributes => [:id, :street, :area, :city, :state, :pincode]},
+      {:address_attributes => [:id, :street, :area, :city, :state, :pincode, :latitude, :longitude]},
       {:bank_detail_attributes => [:id, :bank_name, :branch_name, :account_number]},
       {:employment_detail_attributes => [:id, :company_name, :location, :designation]}
       )

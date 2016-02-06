@@ -15,4 +15,4 @@ Designation : <%= @customer.employment_detail.designation %><br/>
 <%= link_to "Book ticket", new_ticket_path %>  |
 <%= link_to "View Transaction History", tickets_path %>
 <hr>
-<%= link_to "Maps", new_map_path %>
+<%= link_to "Show Json", customer_path(current_customer.id, :format => :json), :target => "blank" %>
